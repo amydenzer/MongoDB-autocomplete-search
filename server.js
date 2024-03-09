@@ -17,6 +17,12 @@ MongoClient.connect(dbConnectionStr)
         collection = db.collection('movies')
     })
 
+
+app.use(express.urlencoded({extended : true}))
+app.use(express.json())
+app.use(cors())
+
+
 app.get("/search", async (request, response) => {
     try {
         let result = await collection.aggregate([
@@ -50,12 +56,7 @@ app.get("/get/:id", async (request, response) => {
     }
 })
 
-app.use(express.urlencoded[{extended : true}])
-app.use(express.json())
-app.use(cors())    
-
-
-
+  
 app.listen(process.env.PORT || PORT, () => {
     console.log('Server is running.')
 })    
